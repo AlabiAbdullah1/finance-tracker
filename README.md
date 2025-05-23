@@ -93,22 +93,6 @@ A full-stack finance tracking application built with TypeScript, React, Node.js,
    npm run dev
    ```
 
-4. Access the application:
-   - Frontend: http://localhost:3000
-   - Backend API: http://localhost:5000
-
-### Docker Setup
-
-1. **Build and run with Docker Compose:**
-
-   ```bash
-   docker-compose up --build
-   ```
-
-2. Access the application:
-   - Frontend: http://localhost
-   - Backend API: http://localhost:5000
-
 ## Environment Variables
 
 ### Backend (.env)

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import { NavLink } from "react-router-dom";
 
 export const Header: React.FC = () => {
     const { user, logout } = useAuth();
@@ -15,7 +16,7 @@ export const Header: React.FC = () => {
         <header className="header">
             <div className="header-content">
                 <div className="header-left">
-                    <h1>Finance Tracker</h1>
+                    <NavLink to="/"><h1>Finance Tracker</h1></NavLink>
                 </div>
                 <nav className="header-nav">
                     {user ? (
