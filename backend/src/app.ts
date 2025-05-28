@@ -5,6 +5,7 @@ import authRoutes from "./routes/authRoutes";
 import categoryRoutes from "./routes/categoryRoutes";
 import transactionRoutes from "./routes/transactionRoutes";
 import { errorHandler } from "./middleware/errorHandler";
+import budgetRoute from "./routes/budgetRoutes";
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(morgan("dev"));
 app.use("/api/auth", authRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/transactions", transactionRoutes);
+app.use("/api/budget", budgetRoute)
 
 // Error Handler
 app.use(errorHandler);

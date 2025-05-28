@@ -39,3 +39,28 @@ export interface AuthResponse {
     email: string;
     token: string;
 }
+
+export interface Budget {
+  _id: string;
+  user: string;
+  category?: string;
+  title: string;
+  amount: number;
+  period: "monthly" | "weekly";
+  startDate: string; // or Date if you're parsing it into Date
+  endDate: string;   // or Date
+  alertSent: boolean;
+  totalAmount: number;
+  budgetItems?: BudgetItem[]; // optional if not populated
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface BudgetItem {
+  _id: string;
+  user: string;
+  category?: string;
+  amount: number;
+  itemName: string;
+  budgetID: string;
+}

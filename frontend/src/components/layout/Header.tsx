@@ -23,6 +23,7 @@ export const Header: React.FC = () => {
                         <>
                             <Link to="/">Dashboard</Link>
                             <Link to="/categories">Categories</Link>
+                            <Link to="/budgets">Budget</Link> {/* 👈 Added Budget link */}
                             <div className="header-user">
                                 <span>Welcome, {user.name}</span>
                                 <button onClick={handleLogout} className="logout-button">

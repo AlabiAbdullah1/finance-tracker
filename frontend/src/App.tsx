@@ -9,6 +9,7 @@ import RegisterPage from "./pages/RegisterPage";
 import DashboardPage from "./pages/DashboardPage";
 import CategoriesPage from "./pages/CategoriesPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import BudgetPage from "./pages/BudgetPage";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -36,6 +37,7 @@ const App: React.FC = () => {
                                 <Route element={<ProtectedRoute />}>
                                     <Route path="/" element={<DashboardPage />} />
                                     <Route path="/categories" element={<CategoriesPage />} />
+                                    <Route path="/budgets" element={<BudgetPage />} />
                                 </Route>
 
                                 {/* 404 Route */}
