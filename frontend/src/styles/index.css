@@ -871,3 +871,55 @@ button:disabled {
   margin: 0;
   color: #4a5568;
 }
+
+.verify-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  background-color: #f8f9fa;
+}
+
+.verify-container {
+  background-color: #fff;
+  padding: 2rem 2.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.verify-icon {
+  font-size: 48px;
+  color: #007bff;
+  margin-bottom: 1rem;
+}
+
+.verify-container h2 {
+  margin-bottom: 0.5rem;
+}
+
+.verify-container p {
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+.password-input-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    color: #888;
+}
+
+
+.password-input-wrapper input {
+    flex: 1;
+    padding-right: 2.5rem;
+}

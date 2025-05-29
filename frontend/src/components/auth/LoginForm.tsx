@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../api/authApi";
 import { useAuth } from "../../contexts/AuthContext";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export const LoginForm: React.FC = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
@@ -45,14 +47,22 @@ export const LoginForm: React.FC = () => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="password">Password</label>
-                    <input
-                        id="password"
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                        disabled={isLoading}
-                    />
+                    <div className="password-input-wrapper">
+                        <input
+                            id="password"
+                            type={showPassword ? "text" : "password"}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                            disabled={isLoading}
+                        />
+                        <span
+                            className="toggle-password"
+                            onClick={() => setShowPassword(!showPassword)}
+                        >
+                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        </span>
+                    </div>
                 </div>
                 <button type="submit" disabled={isLoading}>
                     {isLoading ? "Logging in..." : "Login"}

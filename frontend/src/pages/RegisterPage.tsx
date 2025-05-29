@@ -15,7 +15,7 @@ const RegisterPage: React.FC = () => {
     }
 
     if (user) {
-        return <Navigate to="/" replace />;
+        return <Navigate to="/check-email" replace />;
     }
 
     return (

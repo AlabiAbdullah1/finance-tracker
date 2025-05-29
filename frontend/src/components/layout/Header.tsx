@@ -16,14 +16,14 @@ export const Header: React.FC = () => {
         <header className="header">
             <div className="header-content">
                 <div className="header-left">
-                    <NavLink to="/"><h1>Finance Tracker</h1></NavLink>
+                    <a href="/"><h1>SmartSpend</h1></a>
                 </div>
                 <nav className="header-nav">
                     {user ? (
                         <>
                             <Link to="/">Dashboard</Link>
                             <Link to="/categories">Categories</Link>
-                            <Link to="/budgets">Budget</Link> {/* 👈 Added Budget link */}
+                            <Link to="/budgets">Budget</Link> 
                             <div className="header-user">
                                 <span>Welcome, {user.name}</span>
                                 <button onClick={handleLogout} className="logout-button">

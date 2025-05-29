@@ -10,45 +10,50 @@ import DashboardPage from "./pages/DashboardPage";
 import CategoriesPage from "./pages/CategoriesPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import BudgetPage from "./pages/BudgetPage";
+import CheckEmailPage from "./pages/CheckEmailPage";
+import VerifyPage from "./pages/verifyPage";
 
 const queryClient = new QueryClient({
-    defaultOptions: {
-        queries: {
-            refetchOnWindowFocus: false,
-            retry: 1,
-        },
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: 1,
     },
+  },
 });
 
 const App: React.FC = () => {
-    return (
-        <QueryClientProvider client={queryClient}>
-            <AuthProvider>
-                <BrowserRouter>
-                    <div className="app">
-                        <Header />
-                        <main className="main-content">
-                            <Routes>
-                                {/* Public Routes */}
-                                <Route path="/login" element={<LoginPage />} />
-                                <Route path="/register" element={<RegisterPage />} />
+  return (
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <BrowserRouter>
+          <div className="app">
+            <Header />
+            <main className="main-content">
+              <Routes>
+                {/* Public Routes */}
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+                <Route path="/verify/:token" element={<VerifyPage />} />
+               
 
-                                {/* Protected Routes */}
-                                <Route element={<ProtectedRoute />}>
-                                    <Route path="/" element={<DashboardPage />} />
-                                    <Route path="/categories" element={<CategoriesPage />} />
-                                    <Route path="/budgets" element={<BudgetPage />} />
-                                </Route>
+                {/* Protected Routes */}
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/" element={<DashboardPage />} />
+                  <Route path="/categories" element={<CategoriesPage />} />
+                  <Route path="/budgets" element={<BudgetPage />} />
+                </Route>
 
-                                {/* 404 Route */}
-                                <Route path="*" element={<NotFoundPage />} />
-                            </Routes>
-                        </main>
-                    </div>
-                </BrowserRouter>
-            </AuthProvider>
-        </QueryClientProvider>
-    );
+                {/* 404 Route */}
+                <Route path="*" element={<NotFoundPage />} />
+                 <Route path="/check-email" element={<CheckEmailPage />} />
+              </Routes>
+            </main>
+          </div>
+        </BrowserRouter>
+      </AuthProvider>
+    </QueryClientProvider>
+  );
 };
 
 export default App;

@@ -8,7 +8,7 @@ const budgetRoute= Router()
 budgetRoute.use(protect)
 budgetRoute.post("/create", getCategoryMiddleware,  createBudget)
 budgetRoute.get("/", getBudget)
-budgetRoute.patch("/:id", getCategoryMiddleware, updateBudget) 
+budgetRoute.put("/:id", getCategoryMiddleware, updateBudget) 
 budgetRoute.delete("/:id", deleteBudget)
 
 export default budgetRoute

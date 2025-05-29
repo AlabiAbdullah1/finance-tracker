@@ -6,8 +6,8 @@ export const getBudget = async (req: Request, res: Response) => {
   try {
     const userId = req.user._id;
 
-    const budgets = await Budget.find({ user: userId });
-    
+    const budgets = await Budget.find({ user: userId }).lean();
+
     if (!budgets || budgets.length === 0) {
       return res.status(404).json({
         message: "This user hasn't created any budget.",
@@ -16,23 +16,26 @@ export const getBudget = async (req: Request, res: Response) => {
 
     const budgetIds = budgets.map(b => b._id);
 
-  
+    // Fetch all related budget items
+    const budgetItems = await BudgetItem.find({ budgetID: { $in: budgetIds } }).lean();
 
-    const budgetItems = await BudgetItem.find({ budgetID: { $in: budgetIds } });
-    
-
-    return res.status(200).json({
-      budgets,
-      budgetItems,
+    // Attach items to each budget
+    const budgetsWithItems = budgets.map(budget => {
+      const items = budgetItems.filter(item => item.budgetID.toString() === budget._id.toString());
+      return {
+        ...budget,
+        items,
+      };
     });
+
+    return res.status(200).json({ budgets: budgetsWithItems });
 
   } catch (error: any) {
     console.error(error.message);
-    return res.status(500).json({
-      message: "Internal Server Error",
-    });
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
 
 export const updateBudget = async (req: Request, res: Response) => {
   try {

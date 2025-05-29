@@ -7,6 +7,7 @@ A full-stack finance tracking application built with TypeScript, React, Node.js,
 - 🔒 **User Authentication**
 
   - JWT-based authentication
+  - Sending Verfication token to verify user's mail authenticity
   - Register and login functionality
   - Protected routes
 
@@ -17,6 +18,11 @@ A full-stack finance tracking application built with TypeScript, React, Node.js,
   - Filter and sort transactions
   - Pagination support
   - Date range filtering
+
+- 💰 **Budget Management**
+   - Create a budget and the budgetItems based on the saved category and category types
+   - Update and Delete budget
+
 
 - 📊 **Categories**
 
@@ -51,56 +57,25 @@ A full-stack finance tracking application built with TypeScript, React, Node.js,
 - Modern CSS with variables
 - Responsive design
 
-### DevOps
-
-- Docker and Docker Compose
-- Nginx for frontend serving
-- Environment configuration
-- Production-ready setup
-
 ## Getting Started
 
 ### Prerequisites
 
 - Node.js (v16 or higher)
 - MongoDB
-- Docker and Docker Compose (optional)
-
-### Local Development Setup
-
-1. **Clone the repository:**
-
-   ```bash
-   git clone <repository-url>
-   cd finance-tracker
-   ```
-
-2. **Backend Setup:**
-
-   ```bash
-   cd backend
-   cp .env.example .env
-   npm install
-   npm run dev
-   ```
-
-3. **Frontend Setup:**
-
-   ```bash
-   cd frontend
-   cp .env.example .env
-   npm install
-   npm run dev
-   ```
 
 ## Environment Variables
 
 ### Backend (.env)
 
 ```
-MONGO_URI=mongodb://localhost:27017/finance_tracker
-JWT_SECRET=your_jwt_secret_key_here
-PORT=5000
+MONGO_URI
+JWT_SECRET
+PORT
+EMAIL_USER
+EMAIL_PASS
+CLIENT_URL
+
 ```
 
 ### Frontend (.env)
@@ -116,6 +91,8 @@ VITE_API_URL=http://localhost:5000
 - POST `/api/auth/register` - Register new user
 - POST `/api/auth/login` - Login user
 - GET `/api/auth/me` - Get current user
+- GET `/api/auth/verify/:token` - Verify user's mail
+
 
 ### Categories
 
@@ -130,6 +107,15 @@ VITE_API_URL=http://localhost:5000
 - POST `/api/transactions` - Create new transaction
 - DELETE `/api/transactions/:id` - Delete transaction
 - GET `/api/transactions/stats` - Get transaction statistics
+
+
+### Budgets
+- GET `/api/budget` - Get budget alongside the budgetItems of the budget
+- POST `/api/budget/create` - create a budget and the budgetItems for it
+- PUT `/api/budget/:id` - update budget
+- GET `/api/budget/:id` - Delete budget
+
+
 
 ## Development Guidelines
 
