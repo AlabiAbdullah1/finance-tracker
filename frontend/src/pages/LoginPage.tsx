@@ -9,7 +9,7 @@ const LoginPage: React.FC = () => {
     if (isLoading) {
         return (
             <div className="loading-container">
-                <div className="loading-spinner">Loading...</div>
+                <div className="spinner" aria-label="Loading">Loading...</div>
             </div>
         );
     }
@@ -18,19 +18,22 @@ const LoginPage: React.FC = () => {
         return <Navigate to="/" replace />;
     }
 
-    return (
-        <div className="auth-page">
-            <div className="auth-container">
-                <h1>Login to Finance Tracker</h1>
+   return (
+    <div className="auth-page">
+        <div className="auth-container">
+            <h1 className="auth-heading">Login to Finance Tracker</h1>
+            <div className="form-wrapper">
                 <LoginForm />
-                <div className="auth-links">
-                    <p>
-                        Don't have an account? <Link to="/register">Register here</Link>
-                    </p>
-                </div>
+            </div>
+            <div className="auth-links">
+                <p>
+                    Don’t have an account? <Link to="/register" className="auth-link">Register here</Link>
+                </p>
             </div>
         </div>
-    );
+    </div>
+);
+
 };
 
 export default LoginPage;
