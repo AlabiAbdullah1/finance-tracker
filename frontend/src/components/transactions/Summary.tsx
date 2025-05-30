@@ -36,7 +36,7 @@ export const Summary: React.FC<SummaryProps> = ({ transactions }) => {
             <div className="summary-card balance">
                 <h3>Balance</h3>
                 <p className={`amount ${balance >= 0 ? "positive" : "negative"}`}>
-                    {formatAmount(Math.abs(balance))}
+                    {formatAmount(Math.abs(balance))} { " "}
                     <span className="balance-type">{balance >= 0 ? "Credit" : "Deficit"}</span>
                 </p>
             </div>

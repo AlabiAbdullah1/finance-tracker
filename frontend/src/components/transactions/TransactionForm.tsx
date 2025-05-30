@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Category } from "../../types";
 
+
 interface TransactionFormProps {
     categories: Category[];
     onSubmit: (values: {
@@ -46,7 +47,7 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
 
     return (
         <form onSubmit={handleSubmit} className="transaction-form">
-            <div className="form-row">
+            <div className="row">
                 <div className="form-group">
                     <label htmlFor="type">Type</label>
                     <select
@@ -54,7 +55,7 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
                         value={type}
                         onChange={(e) => {
                             setType(e.target.value as "income" | "expense");
-                            setCategory(""); // Reset category when type changes
+                            setCategory("");
                         }}
                         disabled={isLoading}
                     >
@@ -82,7 +83,7 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
                 </div>
             </div>
 
-            <div className="form-row">
+            <div className="row">
                 <div className="form-group">
                     <label htmlFor="amount">Amount</label>
                     <input
@@ -111,7 +112,7 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
                 </div>
             </div>
 
-            <div className="form-group">
+            <div className="form-group full-width">
                 <label htmlFor="description">Description (Optional)</label>
                 <textarea
                     id="description"

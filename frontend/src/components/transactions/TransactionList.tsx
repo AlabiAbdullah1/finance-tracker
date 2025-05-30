@@ -12,9 +12,9 @@ const formatDate = (dateString: string) => {
 };
 
 const formatAmount = (amount: number) => {
-    return new Intl.NumberFormat("en-US", {
+    return new Intl.NumberFormat("en-NG", {
         style: "currency",
-        currency: "USD",
+        currency: "NGN",
     }).format(amount);
 };
 
@@ -52,8 +52,8 @@ export const TransactionList: React.FC<TransactionListProps> = ({
                             )}
                         </div>
                         <div className="transaction-amount">
-                            <span className={`amount ${transaction.type}`}>
-                                {transaction.type === "expense" ? "-" : "+"}
+                            <span className={`amount {transaction.type}`}>
+                                {transaction.type === "expense" ? "-" : "+"} { " "}
                                 {formatAmount(transaction.amount)}
                             </span>
                         </div>

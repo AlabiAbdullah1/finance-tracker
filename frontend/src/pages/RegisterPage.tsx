@@ -21,7 +21,6 @@ const RegisterPage: React.FC = () => {
     return (
         <div className="auth-page">
             <div className="auth-container">
-                <h1>Create Account</h1>
                 <RegisterForm />
                 <div className="auth-links">
                     <p>
