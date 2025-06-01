@@ -11,7 +11,7 @@ import CategoriesPage from "./pages/CategoriesPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import BudgetPage from "./pages/BudgetPage";
 import CheckEmailPage from "./pages/CheckEmailPage";
-import VerifyPage from "./pages/verifyPage";
+import VerifyPage from "./pages/VerifyPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {

@@ -20,7 +20,7 @@ export const Header: React.FC = () => {
    <header className="header">
   <div className="header-content">
     <div className="logo">
-      <NavLink to="/" className="logo-text">Finance<span>Tracker</span></NavLink>
+      <NavLink to="/" className="logo-text">Smart<span>Spend</span></NavLink>
     </div>
 
     {/* Hamburger for mobile */}

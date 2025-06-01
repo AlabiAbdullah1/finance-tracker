@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Budget from "../models/Budget";
 import BudgetItem from "../models/BudgetItems";
+import { sendBudgetCreationEmail } from "../utils/mail";
 
 export const getBudget = async (req: Request, res: Response) => {
   try {
@@ -63,11 +64,11 @@ export const updateBudget = async (req: Request, res: Response) => {
 };
 
 
- export const deleteBudget = async (req: Request, res: Response) => {
+export const deleteBudget = async (req: Request, res: Response) => {
   try {
     const budget = await Budget.findOneAndDelete({
       _id: req.params.id,
-      user: req.user.id, 
+      user: req.user._id,  // use _id consistently
     });
 
     if (!budget) {
@@ -76,11 +77,12 @@ export const updateBudget = async (req: Request, res: Response) => {
       });
     }
 
-    // Optionally delete related budget items too
+    // Delete related budget items with the correct budget._id
     await BudgetItem.deleteMany({ budgetID: budget.value?._id });
 
     return res.status(200).json({
       message: "Budget and related items deleted successfully!",
+      budget,  // Optionally return deleted budget info
     });
   } catch (error: any) {
     console.error(error.message);
@@ -92,38 +94,39 @@ export const updateBudget = async (req: Request, res: Response) => {
 };
 
 
- export const createBudget= async(req:Request, res:Response)=>{
-    try {
+export const createBudget = async (req: Request, res: Response) => {
+  try {
+    const { title, items }: { title: string; items: { amount: number; name: string }[] } = req.body;
 
-        const {title, items}: { title: string, items: { amount: number, name:string }[] } = req.body;
+    const totalAmount = items.reduce((sum, item) => sum + item.amount, 0);
 
-        const totalAmount = items.reduce((sum: number, item: { amount: number }) => sum + item.amount, 0);
+    const budget = await Budget.create({
+      title,
+      totalAmount,
+      user: req.user._id,
+    });
 
-        const budget= await Budget.create({
-            title,
-            totalAmount, 
-            user:req.user.id
-        })
-
-        for(const item of items){
-            await BudgetItem.create({
-                user:req.user.id,
-                category:req.body.categoryId,
-                name:item.name,
-                amount:item.amount,
-                budgetID: budget.id,
-            })
-        }
-
-
-        res.status(201).json({
-            "message":"Budget created Successfully",
-            budget
-        })
-    } catch (error:any) {
-        res.status(500).json({
-            "message":"Internal server error",
-            "error":error.message
-        })
+    for (const item of items) {
+      await BudgetItem.create({
+        user: req.user._id,
+        category: req.body.categoryId,
+        name: item.name,
+        amount: item.amount,
+        budgetID: budget._id,
+      });
     }
- }
+
+    // Send email after budget creation
+    await sendBudgetCreationEmail(req.user.email, title, totalAmount, items);
+
+    res.status(201).json({
+      message: "Budget created successfully and email sent!",
+      budget,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
