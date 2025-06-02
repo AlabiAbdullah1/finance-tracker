@@ -5,6 +5,7 @@ import { transactionSchema } from "../validators/transactionValidators";
 import {
     createTransaction,
     deleteTransaction,
+    downloadTransactions,
     getTransactions,
     getTransactionStats,
 } from "../controllers/transactionController";
@@ -17,5 +18,6 @@ router.get("/", getTransactions);
 router.post("/", validateRequest(transactionSchema), createTransaction);
 router.delete("/:id", deleteTransaction);
 router.get("/stats", getTransactionStats);
+router.get("/download", downloadTransactions);
 
 export default router;

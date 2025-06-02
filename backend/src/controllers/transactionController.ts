@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Transaction, { ITransaction } from "../models/Transaction";
 import Category from "../models/Category";
+import {Parser} from "json2csv";
 
 export const getTransactions = async (req: Request, res: Response) => {
     try {
@@ -135,3 +136,20 @@ export const getTransactionStats = async (req: Request, res: Response) => {
         res.status(400).json({ error: (error as Error).message });
     }
 };
+
+
+export const downloadTransactions = async (req: Request, res: Response) => {
+    try {
+        const transactions = await Transaction.find({ user: req.user._id })
+        const fields= ['_id', 'type', 'category', 'amount', 'date', 'description'];
+        const opts={fields}
+        const parser= new Parser(opts);
+        const csv = parser.parse(transactions);
+
+        res.header("Content-Type", "text/csv");
+        res.attachment("transactions.csv");
+        return res.send(csv);
+    } catch (error) {
+        res.status(400).json({ error: (error as Error).message });
+    }
+}

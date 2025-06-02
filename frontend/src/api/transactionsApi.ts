@@ -35,3 +35,19 @@ export const getTransactionStats = async (startDate?: string, endDate?: string) 
     const { data } = await axiosInstance.get("/transactions/stats", { params });
     return data;
 };
+
+// transactionsApi.ts
+export const downloadTransactionsCSV = async () => {
+    const response = await axiosInstance.get("/transactions/download", {
+        responseType: "blob", // Important for downloading files
+    });
+
+    // Create a blob link to download
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "transactions.csv");
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+};

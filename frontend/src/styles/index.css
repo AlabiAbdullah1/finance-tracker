@@ -1231,3 +1231,20 @@ button:disabled {
     flex: 1;
     padding-right: 2.5rem;
 }
+
+
+.download-button {
+    margin-top: 1rem;
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.download-button:hover {
+    background-color: #45a049;
+}
