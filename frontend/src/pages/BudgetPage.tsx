@@ -45,7 +45,7 @@ const BudgetPage: React.FC = () => {
   const handleDelete = async (id: string) => {
     try {
       await deleteBudget(id);
-      loadBudgets();
+      // loadBudgets();
     } catch (error) {
       console.error('Error deleting budget:', error);
     }
