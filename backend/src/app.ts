@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 // Routes
-app.use("/api", (req, res, next) => {
+app.use("/api", (_req, res, _next) => {
     res.send("Welcome to the Expense Tracker API by Group G");
 })
 app.use("/api/auth", authRoutes);
