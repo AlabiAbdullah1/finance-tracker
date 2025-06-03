@@ -21,7 +21,7 @@ const LoginPage: React.FC = () => {
    return (
     <div className="auth-page">
         <div className="auth-container">
-            <h1 className="auth-heading">Login to Finance Tracker</h1>
+            <h1 className="auth-heading">Login to Smart Spend</h1>
             <div className="form-wrapper">
                 <LoginForm />
             </div>

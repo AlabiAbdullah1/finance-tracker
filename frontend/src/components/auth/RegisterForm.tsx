@@ -42,7 +42,7 @@ export const RegisterForm: React.FC = () => {
     return (
         <div className="auth-form-container">
             <form onSubmit={handleSubmit} className="auth-form">
-                <h2 className="form-title">Welcome to Finance Tracker</h2>
+                <h2 className="form-title">Welcome to Smart Spend</h2>
                 <p className="form-subtitle">Please enter your credentials to Register.</p>
                 {error && <div className="register-error">{error}</div>}
                 <div className="form-group">
