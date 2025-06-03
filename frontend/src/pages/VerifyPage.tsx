@@ -11,7 +11,7 @@ const VerifyPage = () => {
     useEffect(() => {
         const verify = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/api/auth/verify/${token}`);
+                const res = await axios.get(`https://finance-tracker-backend-zxc8.onrender.com/api/auth/verify/${token}`);
                 toast.success(res.data.message);
                 navigate("/login");
             } catch (err: any) {
