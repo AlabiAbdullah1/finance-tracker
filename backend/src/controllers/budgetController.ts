@@ -43,7 +43,7 @@ export const updateBudget = async (req: Request, res: Response) => {
     const budget = await Budget.findOneAndUpdate(
       { _id: req.params.id, user: req.user.id },  
       req.body,
-      { new: true, runValidators: true }
+      { new: true }
     );
 
     if (!budget) {
@@ -64,31 +64,47 @@ export const updateBudget = async (req: Request, res: Response) => {
 };
 
 
+
 export const deleteBudget = async (req: Request, res: Response) => {
   try {
-    const budget = await Budget.findOneAndDelete({
-      _id: req.params.id,
-      user: req.user._id,  // use _id consistently
+    const { id } = req.params;
+    const userId = req.user._id;
+
+    // 1. Find and delete the budget
+    const deletedBudget = await Budget.findOneAndDelete({
+      _id: id,        // Use _id instead of id
+      user: userId    // Ensure user owns the budget
     });
 
-    if (!budget) {
-      return res.status(404).json({
-        error: "Budget not found or you're not authorized to delete this.",
+    if (!deletedBudget) {
+      return res.status(404).json({ 
+        success: false,
+        message: "Budget not found or unauthorized to delete"
       });
     }
 
-    // Delete related budget items with the correct budget._id
-    await BudgetItem.deleteMany({ budgetID: budget.value?._id });
-
-    return res.status(200).json({
-      message: "Budget and related items deleted successfully!",
-      budget,  // Optionally return deleted budget info
+    // 2. Delete associated items
+    await BudgetItem.deleteMany({ 
+      budget: deletedBudget.value?.id // Use the correct reference field
     });
-  } catch (error: any) {
-    console.error(error.message);
+
+    // 3. Return success response
+    return res.status(200).json({
+      success: true,
+      message: "Budget and related items deleted successfully",
+      data: {
+        budgetId: deletedBudget.value?._id,
+        deletedItemsCount: (await BudgetItem.countDocuments({ budget: deletedBudget.value?.id }))
+      }
+    });
+
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error('[BudgetController] Delete Error:', errorMessage);
+    
     return res.status(500).json({
-      message: "Internal server error",
-      error: error.message,
+      success: false,
+      message: "Failed to delete budget",
     });
   }
 };
